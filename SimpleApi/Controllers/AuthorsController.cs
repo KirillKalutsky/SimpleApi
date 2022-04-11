@@ -40,14 +40,14 @@ namespace SimpleApi.Controllers
         }
 
         [HttpGet("{authorId}")]
-        public ActionResult<Author> GetAuthorById([FromRoute] Guid authorId)
+        public ActionResult<AuthorDto> GetAuthorById([FromRoute] Guid authorId)
         {
             var author = context.FindById(authorId);
 
             if (author == null)
                 return NotFound();
 
-            return author;
+            return mapper.Map<AuthorDto>(author);
         }
 
         [HttpGet]

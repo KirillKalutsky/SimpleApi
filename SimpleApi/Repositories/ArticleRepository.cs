@@ -26,6 +26,7 @@ namespace SimpleApi.Repositories
         public Article FindById(Guid id)
         {
             return journalContext.Articles
+                .Include(art=>art.Creators)
                 .Where(article => article.Id == id)
                 .FirstOrDefault();
         }

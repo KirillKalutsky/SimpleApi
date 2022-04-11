@@ -68,6 +68,16 @@ namespace SimpleApi
                 cfg.CreateMap<Author, AuthorToUpdateDto>();
                 cfg.CreateMap<AuthorToCreateDto, Author>();
                 cfg.CreateMap<AuthorToUpdateDto, Author>();
+
+                cfg.CreateMap<Article, ArticleDto>()
+                    .ForMember(dto => dto.Creators,
+                        opt => opt.MapFrom(
+                            article => article.Creators.Select(cr => cr.Id)));
+
+                cfg.CreateMap<Author, AuthorDto>()
+                    .ForMember(dto => dto.Works,
+                        opt => opt.MapFrom(
+                            article => article.Works.Select(cr => cr.Id)));
             }, Array.Empty<Assembly>());
 
             services.AddSwaggerGen(c =>

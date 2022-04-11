@@ -23,14 +23,14 @@ namespace SimpleApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Article> GetArticleById([FromRoute] Guid id)
+        public ActionResult<ArticleDto> GetArticleById([FromRoute] Guid id)
         {
             var article = context.FindById(id);
 
             if (article == null)
                 return NotFound();
 
-            return article;
+            return mapper.Map<ArticleDto>(article);
         }
 
         [HttpGet]
@@ -40,14 +40,16 @@ namespace SimpleApi.Controllers
         }
 
         [HttpGet("Creators/{creatorId}")]
-        public ActionResult<IEnumerable<Article>> GetArticlesByIdCreator([FromRoute] Guid creatorId)
+        public ActionResult<IEnumerable<ArticleDto>> GetArticlesByIdCreator([FromRoute] Guid creatorId)
         {
             var articles = context.FindByCreatorId(creatorId);
 
             if (articles == null)
                 return NotFound();
 
-            return Ok(articles);
+            var result = articles.Select(art => mapper.Map<ArticleDto>(art));
+
+            return Ok(result);
         }
 
         [HttpPost]
