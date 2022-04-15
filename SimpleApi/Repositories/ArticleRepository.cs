@@ -55,9 +55,6 @@ namespace SimpleApi.Repositories
             journalContext.Articles.Remove(article);
         }
 
-        /*public void Update(Article article)
-        {
-            journalContext.Articles.
-        }*/
+        public void SaveChanges() => journalContext.SaveChanges();
     }
 }

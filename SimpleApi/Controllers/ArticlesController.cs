@@ -82,13 +82,13 @@ namespace SimpleApi.Controllers
                 return NotFound();
 
             var updateArticle = mapper.Map<ArticleToUpdateDto>(article);
-            articleDto.ApplyTo(updateArticle,
-                (Microsoft.AspNetCore.JsonPatch.Adapters.IObjectAdapter)ModelState);
+            articleDto.ApplyTo(updateArticle);
             if(!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);
 
             var upA = mapper.Map(updateArticle, article);
             article = upA;
+            context.SaveChanges();
 
             return NoContent();
         }

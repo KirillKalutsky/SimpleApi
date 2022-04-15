@@ -84,7 +84,7 @@ namespace SimpleApi.Controllers
                 return NotFound();
 
             var authorDto = mapper.Map<AuthorToUpdateDto>(author);
-            authorUpdate.ApplyTo(authorDto, (Microsoft.AspNetCore.JsonPatch.Adapters.IObjectAdapter)ModelState);
+            authorUpdate.ApplyTo(authorDto);
 
             if (!ModelState.IsValid)
                 return UnprocessableEntity();
